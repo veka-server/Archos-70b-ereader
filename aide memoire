@@ -1,0 +1,48 @@
+A follow up on this; if I write and then read back it looks fine, but if I reboot then it is junk again.
+
+I extracted the files from the image from http://www.mk809.com/cs102/en/Download.html
+unrar'd it to get rk3066_T002_Launcher2_public_20121119.img
+
+ran it through ../../rk-tools/img_unpack:
+and got img_inpack.on.20121119.img-isrkaf
+
+then ran that through:
+../../rk-tools/afptool -unpack img_inpack.on.20121119.img-isrkaf
+
+and have a boot.img,kernel.img,misc.img,recovery.img, and system.img and a few other bits ( a prameter file, a package-file, a RK30xxLoader .bin and an update-script).
+
+and wrote them back with:
+2024 ./rkflashtool w 0x2000 96 < ../../../recovery/raropen/output-of-afptool/Image/misc.img 
+2025 ./rkflashtool w 0x00008000 17504 < ../../../recovery/raropen/output-of-afptool/Image/boot.img 
+2026 ./rkflashtool w 0x4000 13665 < ../../../recovery/raropen/output-of-afptool/Image/kernel.img 
+2027 ./rkflashtool w 0x00010000 20928 < ../../../recovery/raropen/output-of-afptool/Image/recovery.img 
+2028 ./rkflashtool w 0x21a000 669730 < ../../../recovery/raropen/output-of-afptool/Image/system.img 
+2029 ./rkflashtool b
+
+
+but nothing :-(
+
+suggestions welcome.
+
+
+
+
+
+BQ Voltaire rooted 2.2-v1.zip
+sudo ./rkflashtool w 0x00002000 0x00002000 < ./NNN/Image/misc.img
+sudo ./rkflashtool w 0x00004000 0x00004000 < ./NNN/Image/kernel.img
+sudo ./rkflashtool w 0x00008000 0x00002000 < ./NNN/Image/boot.img
+sudo ./rkflashtool w 0x0000A000 0x00004000 < ./NNN/Image/recovery.img
+sudo ./rkflashtool w 0x0000E000 0x00048000 < ./NNN/Image/system.img
+
+
+
+
+
+BQ Voltaire v20110609_rooted.zip
+sudo ./rkflashtool w 0x00002000 0x00002000 < ./NNN/Image/misc.img
+sudo ./rkflashtool w 0x00004000 0x00004000 < ./NNN/Image/kernel.img
+sudo ./rkflashtool w 0x00008000 0x00002000 < ./NNN/Image/boot.img
+sudo ./rkflashtool w 0x0000A000 0x00004000 < ./NNN/Image/recovery.img
+sudo ./rkflashtool w 0x0000E000 0x00048000 < ./NNN/Image/system.img
+
